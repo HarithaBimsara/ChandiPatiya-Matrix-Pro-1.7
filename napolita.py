@@ -77,6 +77,27 @@ class Napolita:
         new.down = self.up
         return new
 
+    def getFraction(self, noOfDecimals="Null"):
+        fraction = self.up/self.down
+        fraction = str(fraction)
+        if noOfDecimals=="Null":
+            return float(fraction)
+        if noOfDecimals==0:
+            return int(float(fraction))
+        if len(fraction[fraction.index(".")+1:])>=noOfDecimals:
+            return float(fraction[:fraction.index(".")+noOfDecimals+1])
+        else:
+            return float(fraction)
+
+    def getFractionRound(self, noOfDecimals="Null"):
+        fraction = self.up/self.down
+        if noOfDecimals=="Null":
+            return float(fraction)
+        if noOfDecimals==0:
+            return int(round(fraction, noOfDecimals))
+        return round(fraction, noOfDecimals)
+
+
     @staticmethod
     def gcd(a, b):
         if 0 in (a, b):
@@ -146,4 +167,6 @@ class Napolita:
             new.up = self.up
             new.refresh()
             return new
+
+
 
