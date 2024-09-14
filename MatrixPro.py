@@ -262,6 +262,17 @@ class HariMatrix:
         newRealOut += '  '+(len(realOut.split('\n')[0])-2)*'-'+'\n'
         return newRealOut.rstrip('\n')
 
+    def getMatrixFloats(self, accuracy):
+        out = []
+        for i in range(len(self.matrix)):
+            pre = []
+            for j in range(len(self.matrix[0])):
+                pre.append(self.matrix[i][j].getFractionRound(accuracy))
+
+            out.append(pre)
+        return out
+
+
 
     def getI(self):
         if self.getM() == self.getN():
@@ -777,11 +788,10 @@ class HariMatrix:
     ########################
 
 
-'''a = [
-    [2, 3],
-    [4, 6]
+a = [
+    [2.5, 3/9, 6/7],
+    [4, 6/4, 0]
 ]
 a = HariMatrix(a)
 a.rowExchange(0, 0)
-print(a.getBeautyStringPro())
-'''
+print(a.getMatrixFloats(2))

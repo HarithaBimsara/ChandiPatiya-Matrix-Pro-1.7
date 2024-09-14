@@ -15,7 +15,7 @@ class DHRow():
 		return angleInRadians
 
 
-	def getHomoMatrix(self):
+	def getHomoMatrix(self, accuracy):
 		a = Napolita(str(self.a))
 		alpha = self.alpha
 		d = Napolita(str(self.d))
@@ -40,6 +40,6 @@ class DHRow():
 			[0, 0, 0, 1]
 		]
 		HomoMatrix = HariMatrix(HomoMatrix)
-		print(HomoMatrix.getBeautyStringProFraction(2))
+		return HomoMatrix.getBeautyStringProFraction(3)
 
 

@@ -8,6 +8,8 @@ from MatrixPro import HariMatrix
 from napolita import Napolita
 from lin2 import bongoAnalyser
 
+from HomoMatrix import DHRow
+
 
 running = True
 
@@ -170,6 +172,11 @@ def colExchange(parent):
     print('~ Enter the Columns $ ', end='')
     cols = [int(x)-1 for x in input().split()]
     matrixGroup[parent].colExchange(*cols)
+
+
+def getDH(parent):
+    print(matrixGroup.get(parent).matrix)
+
 
 def deleteItem(parent):
     if parent in matrixGroup:
@@ -375,7 +382,8 @@ commandDictionary = {
     'addr': addRow,
     'addc': addColumn,
     'rex': rowExchange,
-    'cex': colExchange
+    'cex': colExchange,
+    'dh': getDH
 }
 
 singleCommandDictionary = {
