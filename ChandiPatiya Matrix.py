@@ -272,7 +272,7 @@ def help():
 def about():
     answer = """
    Developed and maintained by ChandiPatiya Software Solutions
-   ChandiPatiya Matrix Helper (Edition 1.50)
+   ChandiPatiya Matrix Helper (Edition 1.70)
    bimsara.hari@gmail.com
    Free Software
     """
