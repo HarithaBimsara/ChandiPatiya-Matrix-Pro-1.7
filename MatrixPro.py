@@ -106,6 +106,7 @@ class HariMatrix:
             self.matrix.append(semi)
 
     def createSuperIntMatrix(self):
+
         new = []
         for i in self.array[0]:
             pre = []
@@ -788,10 +789,6 @@ class HariMatrix:
     ########################
 
 
-a = [
-    [2.5, 3/9, 6/7],
-    [4, 6/4, 0]
-]
+'''a = [['2.5', '3/2', '6'], ['4', '6/22', '0']]
 a = HariMatrix(a)
-a.rowExchange(0, 0)
-print(a.getMatrixFloats(2))
+print(a.getMatrixFloats(2))'''
