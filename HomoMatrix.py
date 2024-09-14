@@ -40,6 +40,6 @@ class DHRow():
 			[0, 0, 0, 1]
 		]
 		HomoMatrix = HariMatrix(HomoMatrix)
-		return HomoMatrix.getBeautyStringProFraction(3)
+		return HomoMatrix.getBeautyStringProFraction(accuracy)
 
 
