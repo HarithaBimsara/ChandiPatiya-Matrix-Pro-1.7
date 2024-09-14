@@ -175,7 +175,13 @@ def colExchange(parent):
 
 
 def getDH(parent):
-    print(matrixGroup.get(parent).matrix)
+    if len(matrixGroup.get(parent).matrix) == 1:
+        dhRow = DHRow(*(matrixGroup.get(parent).getMatrixFloats(2)[0]))
+        print(dhRow.getHomoMatrix(3))
+    else:
+        out = DHRow(*(matrixGroup.get(parent).getMatrixFloats(2)[0]))
+        for i in range(1, len(matrixGroup.get(parent).matrix)):
+            out = out * DHRow(*(matrixGroup.get(parent).getMatrixFloats(i)[0]))
 
 
 def deleteItem(parent):
@@ -322,6 +328,7 @@ def equation():
 '''
 
 def equal(fullCommand):
+    print("yoloo")
     if '+' not in fullCommand and '-' not in fullCommand and '*' not in fullCommand:
         matrixGroup[fullTrim((fullCommand.split('=')[0]))] = commandDictionary[
             fullCommand.split('=')[1].split()[0] + 'R'](fullCommand.split('=')[1])
@@ -425,23 +432,23 @@ def seperator(fullCommand):
 
 
 while running:
-    try:
-        print(f"{Fore.LIGHTRED_EX}~ ", end='')
-        cin = fullTrim(input())
-        if not cin:
-            continue
-
-        elif cin in matrixGroup:
-            print(f'{Fore.LIGHTBLACK_EX}{matrixGroup[cin].getBeautyStringPro()}')
-
-        elif cin.lower() in singleCommandDictionary:
-
-            temp = singleCommandDictionary.get(cin.lower())()
-            if temp:
-                print(temp)
-        else:
-            seperator(cin)
-
-    except:
-        printRed('~ Programme Temporarily Crashed Keep going')
+    #try:
+    print(f"{Fore.LIGHTRED_EX}~ ", end='')
+    cin = fullTrim(input())
+    if not cin:
         continue
+
+    elif cin in matrixGroup:
+        print(f'{Fore.LIGHTBLACK_EX}{matrixGroup[cin].getBeautyStringPro()}')
+
+    elif cin.lower() in singleCommandDictionary:
+
+        temp = singleCommandDictionary.get(cin.lower())()
+        if temp:
+            print(temp)
+    else:
+        seperator(cin)
+
+    #except:
+        #printRed('~ Programme Temporarily Crashed Keep going')
+        #continue
