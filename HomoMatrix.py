@@ -35,11 +35,11 @@ class DHRow():
 
 		HomoMatrix = [
 			[ct, (st*ca)*-1, st*sa, ct*a],
-			[st, ct*ca, (ct*sa)*-1, st*a],
+			[st, ct*ca, (ca*st)*-1, st*a],
 			[0, sa, ca, d],
 			[0, 0, 0, 1]
 		]
 		HomoMatrix = HariMatrix(HomoMatrix)
-		print(HomoMatrix.getBeautyStringPro())
+		print(HomoMatrix.getBeautyStringProFraction(2))
 
 

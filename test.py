@@ -1,4 +1,4 @@
 from HomoMatrix import DHRow
 
-a = DHRow(2, 90, 0, 0)
+a = DHRow(0.3, 0, 0.4, 60)
 a.getHomoMatrix()

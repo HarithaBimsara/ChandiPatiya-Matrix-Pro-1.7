@@ -237,6 +237,32 @@ class HariMatrix:
         newRealOut += '  '+(len(realOut.split('\n')[0])-2)*'-'+'\n'
         return newRealOut.rstrip('\n')
 
+    def getBeautyStringProFraction(self, accuracy="Null"):
+        realOut = ''
+        out = []
+        for j in range(len(self.matrix[0])):
+            pre = []
+            largest = str(self.matrix[0][j].getFractionRound(accuracy))
+            for i in range(len(self.matrix)):
+                if len(str(self.matrix[i][j].getFractionRound(accuracy))) > len(str(largest)):
+                    largest = self.matrix[i][j].getFractionRound(accuracy)
+            for i in range(len(self.matrix)):
+                pre.append(' '*(len(str(largest))-len(str(self.matrix[i][j].getFractionRound(accuracy))))+str(self.matrix[i][j].getFractionRound(accuracy)))
+            out.append(pre)
+
+        for i in range(len(out[0])):
+            pre = '  | '
+            for j in range(len(out)):
+                pre += out[j][i] + '  '
+            pre = pre.rstrip(' ')
+            pre += ' |'
+            realOut += pre + '\n'
+        newRealOut = '  '+(len(realOut.split('\n')[0])-2)*'-'+'\n'
+        newRealOut += realOut
+        newRealOut += '  '+(len(realOut.split('\n')[0])-2)*'-'+'\n'
+        return newRealOut.rstrip('\n')
+
+
     def getI(self):
         if self.getM() == self.getN():
             I = HariMatrix(self.getM(), self.getN())
