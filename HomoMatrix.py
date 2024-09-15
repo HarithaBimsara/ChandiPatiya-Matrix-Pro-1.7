@@ -46,8 +46,8 @@ class DHRow():
 		HomoMatrix = [
 			[ct, (st*ca)*-1, st*sa, ct*a],
 			[st, ct*ca, (ca*st)*-1, st*a],
-			[0, sa, ca, d],
-			[0, 0, 0, 1]
+			['0', sa, ca, d],
+			['0', '0', '0', '1']
 		]
 		HomoMatrix = HariMatrix(HomoMatrix)
 		return HomoMatrix.getBeautyStringProFraction(accuracy)
@@ -63,7 +63,6 @@ class DHRow():
 
 		def cos(angleInDegrees):
 			return round(math.cos(DHRow.getRadians(angleInDegrees)), 7)
-		print(str(cos(alpha)))
 
 		ct = Napolita(str(cos(theta)))
 		st = Napolita(str(sin(theta)))
@@ -73,15 +72,15 @@ class DHRow():
 		HomoMatrix = [
 			[ct, (st*ca)*-1, st*sa, ct*a],
 			[st, ct*ca, (ca*st)*-1, st*a],
-			[0, sa, ca, d],
-			[0, 0, 0, 1]
+			['0', sa, ca, d],
+			['0', '0', '0', '1']
 		]
 		HomoMatrix = HariMatrix(HomoMatrix)
 		return HomoMatrix
 
 
-a = DHRow(0.35, 0, 0.4, 60)
+'''a = DHRow(0.35, 0, 0.4, 60)
 b = DHRow(0.35, 180, 0, 45)
 c = DHRow(0, 0, 0.2, 0)
 d = a*b
-print((c*d).getBeautyStringProFraction(2))
+print((c*d).getBeautyStringProFraction(2))'''

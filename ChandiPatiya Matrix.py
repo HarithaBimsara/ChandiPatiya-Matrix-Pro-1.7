@@ -49,7 +49,7 @@ def printColorful(string, steady=False):
     print(text)
 
 
-printColorfulBack("ChandiPatiya Matrix Helper (Edition 1.62)", True)
+printColorfulBack("ChandiPatiya Matrix Helper (Edition 1.7)", True)
 printColorfulBack("  Type help for more information ENJOY   ", True)
 
 cin = ''
@@ -181,7 +181,9 @@ def getDH(parent):
     else:
         out = DHRow(*(matrixGroup.get(parent).getMatrixFloats(2)[0]))
         for i in range(1, len(matrixGroup.get(parent).matrix)):
-            out = out * DHRow(*(matrixGroup.get(parent).getMatrixFloats(i)[0]))
+            print(matrixGroup.get(parent).getMatrixFloats(2)[i])
+            out = out * DHRow(*(matrixGroup.get(parent).getMatrixFloats(2)[i]))
+        print(out.getBeautyStringProFraction(3))
 
 
 def deleteItem(parent):
