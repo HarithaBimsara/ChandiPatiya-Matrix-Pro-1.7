@@ -179,10 +179,10 @@ def getDH(parent):
         dhRow = DHRow(*(matrixGroup.get(parent).getMatrixFloats(2)[0]))
         print(dhRow.getHomoMatrix(3))
     else:
-        out = DHRow(*(matrixGroup.get(parent).getMatrixFloats(2)[0]))
+        out = (DHRow(*(matrixGroup.get(parent).getMatrixFloats(2)[0]))).getHomoMatrixHari()
         for i in range(1, len(matrixGroup.get(parent).matrix)):
-            print(matrixGroup.get(parent).getMatrixFloats(2)[i])
-            out = out * DHRow(*(matrixGroup.get(parent).getMatrixFloats(2)[i]))
+            #print(matrixGroup.get(parent).getMatrixFloats(2)[i])
+            out = (out * (DHRow(*(matrixGroup.get(parent).getMatrixFloats(2)[i]))).getHomoMatrixHari())
         print(out.getBeautyStringProFraction(3))
 
 

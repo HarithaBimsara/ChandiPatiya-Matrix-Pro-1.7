@@ -148,7 +148,7 @@ class Napolita:
             new.refresh()
             return new
         elif type(self) == Napolita:
-            print(self.up, other.get)
+            print(self.up, other)
             new = Napolita('')
             new.down = self.down
             new.up = self.up*other

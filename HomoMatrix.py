@@ -36,7 +36,6 @@ class DHRow():
 
 		def cos(angleInDegrees):
 			return round(math.cos(DHRow.getRadians(angleInDegrees)), 7)
-		print(str(cos(alpha)))
 
 		ct = Napolita(str(cos(theta)))
 		st = Napolita(str(sin(theta)))
