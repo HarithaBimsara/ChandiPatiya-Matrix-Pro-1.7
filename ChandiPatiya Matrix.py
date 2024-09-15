@@ -209,77 +209,7 @@ def editItem(parent):
 
 def help():
     answer = """
-    Assign your Matrix into a Single Word
-    Define your Matrix using the new keyword
-
-    Function Introduction
-
-    new : ~ matrix.new
-          ~Rows$ 2
-          ~Cols$ 2
-          ~Value for (1 1)$ 3
-          ~Value for (1 2)$ 4.2
-          ~Value for (2 1)$ 5/2
-          ~Value for (2 2)$ 6
-
-    adjoin: ~ matrix.adjoin
-
-    inverse : ~ matrix.inverse
-
-    rowEchelon : ~ matrix.re
-
-    reducedRowEchelon : ~ matrix.rre
-
-    edit:  ~ matrix.edit
-
-    -----------------------------------------------------
-
-    You can get the stored matrices by using their name
-    you assingned them with
-
-    ~ matrix
-
-
-    -----------------------------------------------------
-
-    You can use add, sub and multiply functions
-    for two matrices that fulfills the mathematical needs
-
-    ~ new.firstMatrix
-    ~ .........
-    ~ .........
-    ~ new.secondMatrix
-    ~ .........
-    ~ .........
-
-    ~ firstMatrix + secondMatrix
-
-    ----------------------------------------------------
-
-    Instead of Taking the results to the Terminal
-    You are allowed to assign them in a variable
-
-    ~ matrix.new
-    ~ ...........
-    ~ inverseOfMatrix = matrix.inverse
-
-    ~ result = matrix * inverseOfMatrix
-
-    ---------------------------------------------------
-
-    Chained Function calling Available
-
-    ~ matrix.inverse.adjoin.inverse
-    ~ secondMatrix = matrix.inverse.adjoin.inverse
-
-    ---------------------------------------------------
-
-    Other Features
-    ~ matrix.del
-    ~ help
-    ~ exit
-    ~ all
-    ~ about
+    Help not available Currently
     """
     printCyan(answer)
 
@@ -329,8 +259,8 @@ def equation():
         del singleCommandDictionary[command]
 '''
 
-def equal(fullCommand):
-    print("yoloo")
+'''def equal(fullCommand):
+    print(fullCommand)
     if '+' not in fullCommand and '-' not in fullCommand and '*' not in fullCommand:
         matrixGroup[fullTrim((fullCommand.split('=')[0]))] = commandDictionary[
             fullCommand.split('=')[1].split()[0] + 'R'](fullCommand.split('=')[1])
@@ -340,7 +270,7 @@ def equal(fullCommand):
         matrixGroup[fullTrim((fullCommand.split('=')[0]))] = sub(fullTrim(fullCommand.split('=')[-1]))
     elif '*' in fullCommand:
         matrixGroup[fullTrim((fullCommand.split('=')[0]))] = mul(fullTrim(fullCommand.split('=')[-1]))
-
+'''
 
 def add(fullCommand, string=False):
     if string:
@@ -371,7 +301,7 @@ def fullTrim(string):
 
 
 commandDictionary = {
-    '=': equal,
+    #'=': equal,
     '+': add,
     '-': sub,
     '*': mul,
@@ -404,11 +334,13 @@ singleCommandDictionary = {
 }
 
 
-def seperator(fullCommand):
+'''def seperator(fullCommand):
     halfCommand = fullCommand.split('=')[-1]
+
     if len([i for i in ('+', '-', '/', '*') if i in halfCommand]) == 0:
         seperatedCommand = [i for i in halfCommand.split('.') if i]
         result = seperatedCommand[0]
+
         for i in range(1, len(seperatedCommand)):
             if i == 1:
                 result = commandDictionary.get(seperatedCommand[i].lower())(result)
@@ -425,11 +357,12 @@ def seperator(fullCommand):
 
     else:
         if '=' in cin:
+            print(cin)
             equal(cin)
 
         else:
             command = [i for i in ('+', '-', '/', '*') if i in cin]
-            print(commandDictionary.get(command[0])(cin, True))
+            print(commandDictionary.get(command[0])(cin, True))'''
 ##########################################################
 
 
@@ -449,7 +382,25 @@ while running:
         if temp:
             print(temp)
     else:
-        seperator(cin)
+        if '=' in cin:
+            pass
+        else:
+            if '.' in cin:
+                if 'new' in cin:
+                    commandDictionary.get('new')(cin.split('.')[0])
+                else:
+                    print(cin)
+                    print(matrixGroup.get(cin.split('.')[0]))
+                    print(cin.split('.')[1])
+                    print(commandDictionary.get(cin.split('.')[1])(matrixGroup.get(cin.split('.')[0])).getBeautyStringPro())
+            elif ('+' in cin) or ('-' in cin) or ('*' in cin):
+                if '+' in cin:
+                    print((matrixGroup.get(cin.split('+')[0])+matrixGroup.get(cin.split('+')[1])).getBeautyStringPro())
+                elif '-' in cin:
+                    print((matrixGroup.get(cin.split('-')[0])-matrixGroup.get(cin.split('-')[1])).getBeautyStringPro())
+                elif '*' in cin:
+                    print((matrixGroup.get(cin.split('*')[0])*matrixGroup.get(cin.split('*')[1])).getBeautyStringPro())
+
 
     #except:
         #printRed('~ Programme Temporarily Crashed Keep going')
