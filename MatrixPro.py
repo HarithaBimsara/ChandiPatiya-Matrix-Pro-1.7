@@ -263,7 +263,7 @@ class HariMatrix:
         newRealOut += '  '+(len(realOut.split('\n')[0])-2)*'-'+'\n'
         return newRealOut.rstrip('\n')
 
-    def getMatrixFloats(self, accuracy):
+    def getMatrixFloats(self, accuracy="Null"):
         out = []
         for i in range(len(self.matrix)):
             pre = []
@@ -289,30 +289,16 @@ class HariMatrix:
         else:
             print("m != n")
 
-    def enterOneElementToRow(self, row, element):
-        if type(element) == Napolita:
-            for i in range(len(self.matrix[row])):
-                self.matrix[row][i] = element
-        else:
-            for i in range(len(self.matrix[row])):
-                self.matrix[row][i] = Napolita(str(element))
-
-    def enterOneElementToColumn(self, column, element):
-        if type(element) == Napolita:
-            for i in self.matrix:
-                i[column] = Napolita(str(element))
-        else:
-            for i in self.matrix:
-                i[column] = element
 
     def getRow(self, row):
-        return self.matrix[row]
+        return HariMatrix([self.matrix[row]])
 
     def getColumn(self, column):
         out = []
         for i in self.matrix:
             out.append(i[column])
-        return out
+
+        return HariMatrix([out]).transpose()
 
     def transpose(self):
         result = []
@@ -495,9 +481,11 @@ class HariMatrix:
                                 res -= maxt[line][i] * det(x)
                 else:
                     res += det4(maxt)
-                return res
 
-            return det(self.matrix)
+
+                return res
+            return HariMatrix([[det(self.matrix).getFractionRound()]])
+            #return det(self.matrix)
         else:
             return "No Output"
 
@@ -506,7 +494,7 @@ class HariMatrix:
             tc = Napolita('')
             for i in range(len(self.matrix)):
                 tc += self.matrix[i][i]
-            return tc
+            return HariMatrix(str(tc))
         else:
             return "No Output"
 
@@ -629,7 +617,7 @@ class HariMatrix:
     def inverse(self):
         if self.getM() == self.getN():
             adj = self.adjoin().matrix
-            det = self.getDeterminant()
+            det = self.getDeterminant().matrix[0][0]
             ou = []
             if det != 0:
                 for i in adj:
@@ -737,7 +725,7 @@ class HariMatrix:
                 if mat.matrix[i][j].get() != '0':
                     rank += 1
                     break
-        return rank
+        return HariMatrix([[(str(rank))]])
 
     def getRankA(self):
         rank = 0
@@ -749,7 +737,7 @@ class HariMatrix:
                 if mat.matrix[i][j].get() != '0':
                     rank += 1
                     break
-        return rank
+        return HariMatrix([[(str(rank))]])
 
     def rowOperatedInverse(self):
         I = self.getI().getClone()
@@ -792,3 +780,14 @@ class HariMatrix:
 '''a = [['2.5', '3/2', '6'], ['4', '6/22', '0']]
 a = HariMatrix(a)
 print(a.getMatrixFloats(2))'''
+'''a = [
+    ['2', '1', '3'],
+    ['0', '9', '1']
+     ]
+
+b = ['5', '0', '3/7']
+a = HariMatrix(a)
+a.rowSpan(*b)
+print(a.getBeautyStringPro())
+print(a.getMatrixFloats(15))
+'''
