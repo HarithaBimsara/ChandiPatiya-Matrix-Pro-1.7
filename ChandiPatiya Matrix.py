@@ -106,37 +106,25 @@ def printGrey(string):
 
 
 def getDet(parent):
-    if type(parent) == str:
-        parent = matrixGroup.get(parent)
     return parent.getDeterminant()
 
 
 def getInverse(parent):
-    if type(parent) == str:
-        parent = matrixGroup.get(parent)
     return parent.inverse()
 
 
 def getAdjoin(parent):
-    if type(parent) == str:
-        parent = matrixGroup.get(parent)
     return parent.adjoin()
 
 
 def getRe(parent):
-    if type(parent) == str:
-        parent = matrixGroup.get(parent)
     return parent.getRowEchelon()
 
 
 def getRre(parent):
-    if type(parent) == str:
-        parent = matrixGroup.get(parent)
     return parent.getReducedRowEchelon()
 
 def transpose(parent):
-    if type(parent) == str:
-        parent = matrixGroup.get(parent)
     return parent.transpose()
 
 def clRow(parent):
@@ -175,15 +163,16 @@ def colExchange(parent):
 
 
 def getDH(parent):
-    if len(matrixGroup.get(parent).matrix) == 1:
-        dhRow = DHRow(*(matrixGroup.get(parent).getMatrixFloats(2)[0]))
-        print(dhRow.getHomoMatrix(3))
+    #print(parent, type(parent))
+    if len(parent.matrix) == 1:
+        dhRow = DHRow(*(parent.getMatrixFloats(2)[0]))
+        return dhRow.getHomoMatrixHari()
     else:
-        out = (DHRow(*(matrixGroup.get(parent).getMatrixFloats(2)[0]))).getHomoMatrixHari()
-        for i in range(1, len(matrixGroup.get(parent).matrix)):
+        out = (DHRow(*(parent.getMatrixFloats(2)[0]))).getHomoMatrixHari()
+        for i in range(1, len(parent.matrix)):
             #print(matrixGroup.get(parent).getMatrixFloats(2)[i])
-            out = (out * (DHRow(*(matrixGroup.get(parent).getMatrixFloats(2)[i]))).getHomoMatrixHari())
-        print(out.getBeautyStringProFraction(3))
+            out = (out * (DHRow(*(parent.getMatrixFloats(2)[i]))).getHomoMatrixHari())
+        return out
 
 
 def deleteItem(parent):
@@ -389,9 +378,11 @@ while running:
                 if 'new' in cin:
                     commandDictionary.get('new')(cin.split('.')[0])
                 else:
-                    print(cin)
+                    '''print(cin)
                     print(matrixGroup.get(cin.split('.')[0]))
-                    print(cin.split('.')[1])
+                    print(cin.split('.')[1])'''
+                    print(commandDictionary.get(cin.split('.')[1]))
+                    print(matrixGroup.get(cin.split('.')[0]))
                     print(commandDictionary.get(cin.split('.')[1])(matrixGroup.get(cin.split('.')[0])).getBeautyStringPro())
             elif ('+' in cin) or ('-' in cin) or ('*' in cin):
                 if '+' in cin:
