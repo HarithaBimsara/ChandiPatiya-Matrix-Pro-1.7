@@ -1,4 +1,5 @@
 # COLORAMA STUFF
+
 import colorama
 from colorama import Back, Fore, Style
 
@@ -105,77 +106,158 @@ def printGrey(string):
     print(f"{Fore.LIGHTBLACK_EX}{string}")
 
 
-def getDet(parent):
-    return parent.getDeterminant()
+def getDet(parent, output,accuracy="Null"):
+
+    if not output:
+        if accuracy=="Null":
+            print(parent.getDeterminant().getBeautyStringPro())
+        else:
+            print(parent.getDeterminant().getBeautyStringProFraction(accuracy))
+    else:
+        return parent.getDeterminant()
 
 
-def getInverse(parent):
-    return parent.inverse()
+def getInverse(parent, output,accuracy="Null"):
+    if not output:
+        if accuracy=="Null":
+            print(parent.inverse().getBeautyStringPro())
+        else:
+            print(parent.inverse().getBeautyStringProFraction(accuracy))
+    else:
+        return parent.inverse()
 
 
-def getAdjoin(parent):
-    return parent.adjoin()
+def getAdjoin(parent, output,accuracy="Null"):
+    if not output:
+        if accuracy=="Null":
+            print(parent.adjoin().getBeautyStringPro())
+        else:
+            print(parent.adjoin().getBeautyStringProFraction(accuracy))
+    else:
+        return parent.adjoin()
 
 
-def getRe(parent):
-    return parent.getRowEchelon()
 
+def getRe(parent, output,accuracy="Null"):
+    if not output:
+        if accuracy=="Null":
+            print(parent.getRowEchelon().getBeautyStringPro())
+        else:
+            print(parent.getRowEchelon().getBeautyStringProFraction(accuracy))
+    else:
+        return parent.getRowEchelon()
 
-def getRre(parent):
-    return parent.getReducedRowEchelon()
+def getRre(parent, output,accuracy="Null"):
+    if not output:
+        if accuracy == "Null":
+            print(parent.getReducedRowEchelon().getBeautyStringPro())
+        else:
+            print(parent.getReducedRowEchelon().getBeautyStringProFraction(accuracy))
+    else:
+        return parent.getReducedRowEchelon()
 
-def transpose(parent):
-    return parent.transpose()
+def transpose(parent, output,accuracy="Null"):
+    if not output:
+        if accuracy=="Null":
+            print(parent.transpose().getBeautyStringPro())
+        else:
+            print(parent.transpose().getBeautyStringProFraction(accuracy))
+    else:
+        return parent.transpose()
 
-def clRow(parent):
+def clRow(parent, output,accuracy="Null"):
+    for i in matrixGroup.keys():
+        if matrixGroup[i]==parent:
+            parent = i
+            break
     print('~ Enter the Row No $ ', end='')
     row = int(input())
     matrixGroup[parent].clearRow(row-1)
 
-def clColumn(parent):
+def clColumn(parent, output,accuracy="Null"):
+    for i in matrixGroup.keys():
+        if matrixGroup[i]==parent:
+            parent = i
+            break
     print('~ Enter the Column No $ ', end='')
     col = int(input())
     matrixGroup[parent].clearColumn(col-1)
 
-def addRow(parent):
+def addRow(parent, output,accuracy="Null"):
+    for i in matrixGroup.keys():
+        if matrixGroup[i]==parent:
+            parent = i
+            break
     print('~ Enter the ROW Elements $ ', end='')
     data = input().split()
     print('~ How many times $ ', end='')
     times = int(input())
     matrixGroup[parent].rowSpan(times, *data)
 
-def addColumn(parent):
+def addColumn(parent, output,accuracy="Null"):
+    for i in matrixGroup.keys():
+        if matrixGroup[i]==parent:
+            parent = i
+            break
     print('~ Enter the COLUMN Elements $ ', end='')
     data = input().split()
     print('~ How many times $ ', end='')
     times = int(input())
     matrixGroup[parent].colSpan(times, *data)
 
-def rowExchange(parent):
+def rowExchange(parent, output,accuracy="Null"):
+    for i in matrixGroup.keys():
+        if matrixGroup[i]==parent:
+            parent = i
+            break
     print('~ Enter the Rows $ ', end='')
     rows = [int(x)-1 for x in input().split()]
     matrixGroup[parent].rowExchange(*rows)
 
-def colExchange(parent):
+def colExchange(parent, output,accuracy="Null"):
+    for i in matrixGroup.keys():
+        if matrixGroup[i]==parent:
+            parent = i
+            break
     print('~ Enter the Columns $ ', end='')
     cols = [int(x)-1 for x in input().split()]
     matrixGroup[parent].colExchange(*cols)
 
 
-def getDH(parent):
+def getDH(parent,output, accuracy="Null", ):
     #print(parent, type(parent))
-    if len(parent.matrix) == 1:
-        dhRow = DHRow(*(parent.getMatrixFloats(2)[0]))
-        return dhRow.getHomoMatrixHari()
+    if not output:
+        if len(parent.matrix) == 1:
+            dhRow = DHRow(*(parent.getMatrixFloats(accuracy)[0]))
+            if accuracy=="Null":
+                print(dhRow.getHomoMatrixHari().getBeautyStringPro())
+            else:
+                print(dhRow.getHomoMatrixHari().getBeautyStringProFraction(accuracy))
+        else:
+            out = (DHRow(*(parent.getMatrixFloats(accuracy)[0]))).getHomoMatrixHari()
+            for i in range(1, len(parent.matrix)):
+                #print(matrixGroup.get(parent).getMatrixFloats(2)[i])
+                out = (out * (DHRow(*(parent.getMatrixFloats(accuracy)[i]))).getHomoMatrixHari())
+            if accuracy=="Null":
+                print(out.getBeautyStringPro())
+            else:
+                print(out.getBeautyStringProFraction(accuracy))
     else:
-        out = (DHRow(*(parent.getMatrixFloats(2)[0]))).getHomoMatrixHari()
-        for i in range(1, len(parent.matrix)):
-            #print(matrixGroup.get(parent).getMatrixFloats(2)[i])
-            out = (out * (DHRow(*(parent.getMatrixFloats(2)[i]))).getHomoMatrixHari())
-        return out
-
+        if len(parent.matrix) == 1:
+            dhRow = DHRow(*(parent.getMatrixFloats(accuracy)[0]))
+            return dhRow.getHomoMatrixHari()
+        else:
+            out = (DHRow(*(parent.getMatrixFloats(accuracy)[0]))).getHomoMatrixHari()
+            for i in range(1, len(parent.matrix)):
+                # print(matrixGroup.get(parent).getMatrixFloats(2)[i])
+                out = (out * (DHRow(*(parent.getMatrixFloats(accuracy)[i]))).getHomoMatrixHari())
+            return out
 
 def deleteItem(parent):
+    for i in matrixGroup.keys():
+        if matrixGroup[i]==parent:
+            parent = i
+            break
     if parent in matrixGroup:
         del matrixGroup[parent]
 
@@ -185,7 +267,11 @@ def getAll():
         print(f"{Fore.LIGHTMAGENTA_EX}{i}:\n{matrixGroup[i].getBeautyStringPro()}\n")
 
 
-def editItem(parent):
+def editItem(parent, accuracy="Null"):
+    for i in matrixGroup.keys():
+        if matrixGroup[i]==parent:
+            parent = i
+            break
     if parent in matrixGroup:
         print(f"{Fore.LIGHTBLUE_EX}~Rows$ ", end='')
         rows = int(input())
@@ -198,14 +284,14 @@ def editItem(parent):
 
 def help():
     answer = """
-    Help not available Currently
+    Help Available at LinkdIn Post Images
     """
     printCyan(answer)
 
 
 def about():
     answer = """
-   Developed and maintained by ChandiPatiya Software Solutions
+   Developed and Maintained by ChandiPatiya Software Solutions
    ChandiPatiya Matrix Helper (Edition 1.70)
    bimsara.hari@gmail.com
    Free Software
@@ -235,65 +321,29 @@ def equation():
     print('~')
 
 
-'''def editCommand():
-    printRose('~ Curernt Command Name $ ', '')
-    command = fullTrim(input())
-    printRose('~ New Command Name     $ ')
-    newCommand = fullTrim(input())
-    if command in commandDictionary:
-        commandDictionary[newCommand] = commandDictionary.get(command)
-        del commandDictionary[command]
-    elif command in singleCommandDictionary:
-        singleCommandDictionary[newCommand] = singleCommandDictionary.get(command)
-        del singleCommandDictionary[command]
-'''
-
-'''def equal(fullCommand):
-    print(fullCommand)
-    if '+' not in fullCommand and '-' not in fullCommand and '*' not in fullCommand:
-        matrixGroup[fullTrim((fullCommand.split('=')[0]))] = commandDictionary[
-            fullCommand.split('=')[1].split()[0] + 'R'](fullCommand.split('=')[1])
-    elif '+' in fullCommand:
-        matrixGroup[fullTrim((fullCommand.split('=')[0]))] = add(fullTrim(fullCommand.split('=')[-1]))
-    elif '-' in fullCommand:
-        matrixGroup[fullTrim((fullCommand.split('=')[0]))] = sub(fullTrim(fullCommand.split('=')[-1]))
-    elif '*' in fullCommand:
-        matrixGroup[fullTrim((fullCommand.split('=')[0]))] = mul(fullTrim(fullCommand.split('=')[-1]))
-'''
-
-def add(fullCommand, string=False):
-    if string:
-        return (matrixGroup[fullTrim(fullCommand.split('+')[0])] + matrixGroup[
-            fullTrim(fullCommand.split('+')[-1])]).getBeautyStringPro()
-    return matrixGroup[fullTrim(fullCommand.split('+')[0])] + matrixGroup[fullTrim(fullCommand.split('+')[-1])]
-
-
-def sub(fullCommand, string=False):
-    if string:
-        return (matrixGroup[fullTrim(fullCommand.split('-')[0])] - matrixGroup[
-            fullTrim(fullCommand.split('-')[-1])]).getBeautyStringPro()
-    return matrixGroup[fullTrim(fullCommand.split('-')[0])] + matrixGroup[fullTrim(fullCommand.split('-')[-1])]
-
-
-def mul(fullCommand, string=False):
-    if string:
-        return (matrixGroup[fullTrim(fullCommand.split('*')[0])] * matrixGroup[
-            fullTrim(fullCommand.split('*')[-1])]).getBeautyStringPro()
-    return matrixGroup[fullTrim(fullCommand.split('*')[0])] * matrixGroup[fullTrim(fullCommand.split('*')[-1])]
-
-
 def fullTrim(string):
     return string.replace(' ', '')
 
 
+def generateOutputFromRight(rightSide, output=False):
+    #print(rightSide)
+    rights = rightSide.split('.')
+    if not output:
 
+        if len(rights) == 2:
+            if rights[1] not in commandDictionary:
+                print(matrixGroup.get(rights[0]).getBeautyStringProFraction(int(rights[1])))
+            else:
+                commandDictionary.get(rights[1])(matrixGroup.get(rights[0]), output)
+
+        elif len(rights) == 3:
+            commandDictionary.get(rights[1])(matrixGroup.get(rights[0]), output, int(rights[2]))
+    else:
+        return commandDictionary.get(rights[1])(matrixGroup.get(rights[0]), output)
 
 
 commandDictionary = {
     #'=': equal,
-    '+': add,
-    '-': sub,
-    '*': mul,
 
     'new2': makeMatrix,
     'new': makeMatrix2,
@@ -366,13 +416,15 @@ while running:
         print(f'{Fore.LIGHTBLACK_EX}{matrixGroup[cin].getBeautyStringPro()}')
 
     elif cin.lower() in singleCommandDictionary:
-
         temp = singleCommandDictionary.get(cin.lower())()
         if temp:
             print(temp)
     else:
         if '=' in cin:
-            pass
+            left, rights = cin.split('=')
+            #print(left)
+            #print(rights)
+            matrixGroup[left] = generateOutputFromRight(rights, output=True)
         else:
             if '.' in cin:
                 if 'new' in cin:
@@ -381,9 +433,9 @@ while running:
                     '''print(cin)
                     print(matrixGroup.get(cin.split('.')[0]))
                     print(cin.split('.')[1])'''
-                    print(commandDictionary.get(cin.split('.')[1]))
-                    print(matrixGroup.get(cin.split('.')[0]))
-                    print(commandDictionary.get(cin.split('.')[1])(matrixGroup.get(cin.split('.')[0])).getBeautyStringPro())
+                    #print(commandDictionary.get(cin.split('.')[1]))
+                    #print(matrixGroup.get(cin.split('.')[0]))
+                    generateOutputFromRight(cin)
             elif ('+' in cin) or ('-' in cin) or ('*' in cin):
                 if '+' in cin:
                     print((matrixGroup.get(cin.split('+')[0])+matrixGroup.get(cin.split('+')[1])).getBeautyStringPro())

@@ -1,3 +1,5 @@
+from array import array
+
 from napolita import Napolita
 
 
@@ -64,12 +66,12 @@ class HariMatrix:
 
             for i in range(self.getM()):
 
-                holdx = self.getRow(i)
+                holdx = self.getRow(i).matrix[0]
 
                 for j in range(other.getN()):
 
                     count = Napolita('')
-                    holdy = other.getColumn(j)
+                    holdy = other.getColumn(j).transpose().matrix[0]
                     for k in range(len(holdy)):
                         count += holdx[k] * holdy[k]
                     c.enterElement(i, j, count)
@@ -106,7 +108,7 @@ class HariMatrix:
             self.matrix.append(semi)
 
     def createSuperIntMatrix(self):
-
+        #print(self.array[0])
         new = []
         for i in self.array[0]:
             pre = []
@@ -114,6 +116,7 @@ class HariMatrix:
                 if type(j) == Napolita:
                     pre.append(j)
                 else:
+                    print(j)
                     pre.append(Napolita(str(j)))
             new.append(pre)
         self.matrix = new
@@ -405,12 +408,10 @@ class HariMatrix:
             out.remove([])
         return out
 
-    def det4(self, m):
-        return m[0][0] * m[1][1] - m[0][1] * m[1][0]
 
     def getDeterminant(self):
         def det4(m):
-            return m[0][0] * m[1][1] - m[0][1] * m[1][0]
+            return m.matrix[0][0] * m.matrix[1][1] - m.matrix[0][1] * m.matrix[1][0]
 
         def zeroCatcher(l):
             def nicoZeroCounter(array):
@@ -480,6 +481,7 @@ class HariMatrix:
                                 x = itemAntiFamilyCreate(maxt, line + 1, i + 1)
                                 res -= maxt[line][i] * det(x)
                 else:
+                    maxt = HariMatrix(maxt)
                     res += det4(maxt)
 
 
@@ -623,7 +625,7 @@ class HariMatrix:
                 for i in adj:
                     c = []
                     for j in i:
-                        ans = j / det
+                        ans = str(j) / det
                         c.append(ans)
                     ou.append(c)
                 out = HariMatrix(ou)
@@ -777,9 +779,12 @@ class HariMatrix:
     ########################
 
 
-'''a = [['2.5', '3/2', '6'], ['4', '6/22', '0']]
+a = [['1', '2'], ['4', '6/7']]
 a = HariMatrix(a)
-print(a.getMatrixFloats(2))'''
+a.getDeterminant()
+print(a.adjoin().getBeautyStringPro())
+#print(a.inverse().getBeautyStringPro())
+print(a.getBeautyStringProFraction(3))
 '''a = [
     ['2', '1', '3'],
     ['0', '9', '1']
