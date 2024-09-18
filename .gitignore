@@ -1,3 +1,8 @@
 
 test.py
+*.pyc
 test.py
+test.py
+test.py
+*.iml
+*.xml
