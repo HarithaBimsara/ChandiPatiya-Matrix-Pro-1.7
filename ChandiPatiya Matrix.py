@@ -306,13 +306,18 @@ while running:
                     else:
                         print(matrixGroup.get(rights[0]).getBeautyStringPro(int(rights[1])))
 
-            if ('+' in cin) or ('-' in cin) or ('*' in cin):
+            elif ('+' in cin) or ('-' in cin) or ('*' in cin):
                 if '=' in cin:
                     newObjName = cin.split('=')[0]
                     matrixGroup[newObjName]=arithmaticOperationFound(cin.split('=')[1])
 
                 else:
                     print(arithmaticOperationFound(cin).getBeautyStringPro())
+
+            elif '=' in cin:
+                newObjName = cin.split('=')[0]
+                right = cin.split('=')[1]
+                matrixGroup[newObjName] = matrixGroup.get(right).getClone()
 
 
 
