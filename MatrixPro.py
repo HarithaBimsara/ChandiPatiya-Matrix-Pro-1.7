@@ -212,17 +212,46 @@ class HariMatrix:
         realOut = realOut.strip('\n')
         return realOut
 
-    def getBeautyStringPro(self):
+    def getBeautyStringPro(self, accuracy="Null"):
+        if accuracy == "Null":
+            realOut = ''
+            out = []
+            for j in range(len(self.matrix[0])):
+                pre = []
+                largest = self.matrix[0][j].get()
+                for i in range(len(self.matrix)):
+                    if len(self.matrix[i][j].get()) > len(largest):
+                        largest = self.matrix[i][j].get()
+                for i in range(len(self.matrix)):
+                    pre.append(' '*(len(largest)-len(self.matrix[i][j].get()))+self.matrix[i][j].get())
+                out.append(pre)
+
+            for i in range(len(out[0])):
+                pre = '  | '
+                for j in range(len(out)):
+                    pre += out[j][i] + '  '
+                pre = pre.rstrip(' ')
+                pre += ' |'
+                realOut += pre + '\n'
+            newRealOut = '  '+(len(realOut.split('\n')[0])-2)*'-'+'\n'
+            newRealOut += realOut
+            newRealOut += '  '+(len(realOut.split('\n')[0])-2)*'-'+'\n'
+            return newRealOut.rstrip('\n')
+        else:
+            return self.getBeautyStringProFraction(accuracy)
+
+
+    def getBeautyStringProFraction(self, accuracy="Null"):
         realOut = ''
         out = []
         for j in range(len(self.matrix[0])):
             pre = []
-            largest = self.matrix[0][j].get()
+            largest = str(self.matrix[0][j].getFractionRound(accuracy))
             for i in range(len(self.matrix)):
-                if len(self.matrix[i][j].get()) > len(largest):
-                    largest = self.matrix[i][j].get()
+                if len(str(self.matrix[i][j].getFractionRound(accuracy))) > len(str(largest)):
+                    largest = self.matrix[i][j].getFractionRound(accuracy)
             for i in range(len(self.matrix)):
-                pre.append(' '*(len(largest)-len(self.matrix[i][j].get()))+self.matrix[i][j].get())
+                pre.append(' '*(len(str(largest))-len(str(self.matrix[i][j].getFractionRound(accuracy))))+str(self.matrix[i][j].getFractionRound(accuracy)))
             out.append(pre)
 
         for i in range(len(out[0])):
@@ -236,6 +265,18 @@ class HariMatrix:
         newRealOut += realOut
         newRealOut += '  '+(len(realOut.split('\n')[0])-2)*'-'+'\n'
         return newRealOut.rstrip('\n')
+
+    def getMatrixFloats(self, accuracy):
+        out = []
+        for i in range(len(self.matrix)):
+            pre = []
+            for j in range(len(self.matrix[0])):
+                pre.append(self.matrix[i][j].getFractionRound(accuracy))
+
+            out.append(pre)
+        return out
+
+
 
     def getI(self):
         if self.getM() == self.getN():
@@ -751,11 +792,9 @@ class HariMatrix:
     ########################
 
 
-'''a = [
-    [2, 3],
-    [4, 6]
-]
+'''a = [['1', '2'], ['4', '6/7']]
 a = HariMatrix(a)
-a.rowExchange(0, 0)
+print(a.getDeterminant())
 print(a.getBeautyStringPro())
-'''
+print(a.getBeautyStringPro(3))
+print(a.getMatrixFloats(3))'''

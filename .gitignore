@@ -1,8 +1,8 @@
 
 test.py
+*.pyc
 test.py
-__pycache__/alge.cpython-312.pyc
-__pycache__/lin2.cpython-312.pyc
-__pycache__/matrix.cpython-312.pyc
-__pycache__/MatrixPro.cpython-312.pyc
-__pycache__/napolita.cpython-312.pyc
+test.py
+test.py
+*.iml
+*.xml
