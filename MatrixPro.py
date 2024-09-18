@@ -212,30 +212,34 @@ class HariMatrix:
         realOut = realOut.strip('\n')
         return realOut
 
-    def getBeautyStringPro(self):
-        realOut = ''
-        out = []
-        for j in range(len(self.matrix[0])):
-            pre = []
-            largest = self.matrix[0][j].get()
-            for i in range(len(self.matrix)):
-                if len(self.matrix[i][j].get()) > len(largest):
-                    largest = self.matrix[i][j].get()
-            for i in range(len(self.matrix)):
-                pre.append(' '*(len(largest)-len(self.matrix[i][j].get()))+self.matrix[i][j].get())
-            out.append(pre)
+    def getBeautyStringPro(self, accuracy="Null"):
+        if accuracy == "Null":
+            realOut = ''
+            out = []
+            for j in range(len(self.matrix[0])):
+                pre = []
+                largest = self.matrix[0][j].get()
+                for i in range(len(self.matrix)):
+                    if len(self.matrix[i][j].get()) > len(largest):
+                        largest = self.matrix[i][j].get()
+                for i in range(len(self.matrix)):
+                    pre.append(' '*(len(largest)-len(self.matrix[i][j].get()))+self.matrix[i][j].get())
+                out.append(pre)
 
-        for i in range(len(out[0])):
-            pre = '  | '
-            for j in range(len(out)):
-                pre += out[j][i] + '  '
-            pre = pre.rstrip(' ')
-            pre += ' |'
-            realOut += pre + '\n'
-        newRealOut = '  '+(len(realOut.split('\n')[0])-2)*'-'+'\n'
-        newRealOut += realOut
-        newRealOut += '  '+(len(realOut.split('\n')[0])-2)*'-'+'\n'
-        return newRealOut.rstrip('\n')
+            for i in range(len(out[0])):
+                pre = '  | '
+                for j in range(len(out)):
+                    pre += out[j][i] + '  '
+                pre = pre.rstrip(' ')
+                pre += ' |'
+                realOut += pre + '\n'
+            newRealOut = '  '+(len(realOut.split('\n')[0])-2)*'-'+'\n'
+            newRealOut += realOut
+            newRealOut += '  '+(len(realOut.split('\n')[0])-2)*'-'+'\n'
+            return newRealOut.rstrip('\n')
+        else:
+            return self.getBeautyStringProFraction(accuracy)
+
 
     def getBeautyStringProFraction(self, accuracy="Null"):
         realOut = ''
@@ -788,9 +792,9 @@ class HariMatrix:
     ########################
 
 
-a = [['1', '2'], ['4', '6/7']]
+'''a = [['1', '2'], ['4', '6/7']]
 a = HariMatrix(a)
-print(a.getDeterminant().get())
+print(a.getDeterminant())
 print(a.getBeautyStringPro())
-print(a.getBeautyStringProFraction(3))
-print(a.getMatrixFloats(3))
+print(a.getBeautyStringPro(3))
+print(a.getMatrixFloats(3))'''
