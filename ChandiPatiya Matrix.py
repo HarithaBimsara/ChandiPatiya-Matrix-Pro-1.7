@@ -320,5 +320,5 @@ while running:
 
 
     except:
-        printRed('~ Programme Temporarily Crashed Keep going')
+        printRed('~ Programme Crashed By Input Error')
         continue
