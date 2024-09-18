@@ -119,7 +119,7 @@ def getRre(parent, accuracy="Null"):
         parent = matrixGroup.get(parent)
     return parent.getReducedRowEchelon()
 
-def transpose(parent, accuracy="Null"):
+def getTranspose(parent, accuracy="Null"):
     if type(parent) == str:
         parent = matrixGroup.get(parent)
     return parent.transpose()
@@ -201,6 +201,8 @@ def editItem(parent):
 def help():
     answer = """
     Help not available Currently
+    Check LinkdIn Account
+    linkedin.com/in/haritha-herath-970180326
     """
     printCyan(answer)
 
@@ -227,7 +229,18 @@ def fullTrim(string):
     return string.replace(' ', '')
 
 
+def arithmaticOperationFound(cin):
+    if ('+' in cin):
+        rights = cin.split('+')
+        return matrixGroup.get(rights[0]) + matrixGroup.get(rights[1])
 
+    elif ('-' in cin):
+        rights = cin.split('-')
+        return matrixGroup.get(rights[0]) - matrixGroup.get(rights[1])
+
+    elif ('*' in cin):
+        rights = cin.split('*')
+        return matrixGroup.get(rights[0]) * matrixGroup.get(rights[1])
 
 
 commandDictionary = {
@@ -239,7 +252,7 @@ commandDictionary = {
     'rre': getRre,
     'del': deleteItem,
     'edit': editItem,
-    'tra' : transpose,
+    'tra' : getTranspose,
     'clr': clRow,
     'clc': clColumn,
     'addr': addRow,
@@ -260,47 +273,52 @@ singleCommandDictionary = {
 
 
 while running:
-    #try:
-    print(f"{Fore.LIGHTRED_EX}~ ", end='')
-    cin = fullTrim(input())
-    if not cin:
-        continue
+    try:
+        print(f"{Fore.LIGHTRED_EX}~ ", end='')
+        cin = fullTrim(input())
+        if not cin:
+            continue
 
-    elif cin in matrixGroup:
-        print(f'{Fore.LIGHTBLACK_EX}{matrixGroup[cin].getBeautyStringPro()}')
+        elif cin in matrixGroup:
+            print(f'{Fore.LIGHTBLACK_EX}{matrixGroup[cin].getBeautyStringPro()}')
 
-    elif cin.lower() in singleCommandDictionary:
-        temp = singleCommandDictionary.get(cin.lower())()
-        if temp:
-            print(temp)
+        elif cin.lower() in singleCommandDictionary:
+            temp = singleCommandDictionary.get(cin.lower())()
+            if temp:
+                print(temp)
 
-    else:
-        if '.' in cin:
-            if 'new' in cin:
-                commandDictionary.get(cin.split('.')[1])(cin.split('.')[0])
-            elif '=' in cin:
-                newObjName = cin.split('=')[0]
-                rights = cin.split('=')[1].split('.')
-                matrixGroup[newObjName] = commandDictionary.get(rights[1])(rights[0])
-            else:
-                rights = cin.split('.')
-                if rights[1] in commandDictionary:
-                    if len(rights) == 3:
-                        answer = commandDictionary.get(rights[1])(rights[0])
-                        print(answer.getBeautyStringPro(int(rights[2])))
-                    else:
-                        answer = commandDictionary.get(rights[1])(rights[0])
-                        if answer:
-                            print(answer.getBeautyStringPro())
+        else:
+            if '.' in cin:
+                if 'new' in cin:
+                    commandDictionary.get(cin.split('.')[1])(cin.split('.')[0])
+                elif '=' in cin:
+                    newObjName = cin.split('=')[0]
+                    rights = cin.split('=')[1].split('.')
+                    matrixGroup[newObjName] = commandDictionary.get(rights[1])(rights[0])
                 else:
-                    print(matrixGroup.get(rights[0]).getBeautyStringPro(int(rights[1])))
+                    rights = cin.split('.')
+                    if rights[1] in commandDictionary:
+                        if len(rights) == 3:
+                            answer = commandDictionary.get(rights[1])(rights[0])
+                            print(answer.getBeautyStringPro(int(rights[2])))
+                        else:
+                            answer = commandDictionary.get(rights[1])(rights[0])
+                            if answer:
+                                print(answer.getBeautyStringPro())
+                    else:
+                        print(matrixGroup.get(rights[0]).getBeautyStringPro(int(rights[1])))
+
+            if ('+' in cin) or ('-' in cin) or ('*' in cin):
+                if '=' in cin:
+                    newObjName = cin.split('=')[0]
+                    matrixGroup[newObjName]=arithmaticOperationFound(cin.split('=')[1])
+
+                else:
+                    print(arithmaticOperationFound(cin).getBeautyStringPro())
 
 
 
 
-        elif ('+' in cin) or ('-' in cin) or ('*' in cin):
-            pass
-
-    #except:
-        #printRed('~ Programme Temporarily Crashed Keep going')
-        #continue
+    except:
+        printRed('~ Programme Temporarily Crashed Keep going')
+        continue
