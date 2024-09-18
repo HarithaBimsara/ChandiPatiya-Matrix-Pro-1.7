@@ -47,7 +47,7 @@ def printColorful(string, steady=False):
     print(text)
 
 
-printColorfulBack("ChandiPatiya Matrix Helper (Edition 1.7)", True)
+printColorfulBack("ChandiPatiya Matrix Helper (Version 1.7)", True)
 printColorfulBack("  Type help for more information ENJOY   ", True)
 
 cin = ''
