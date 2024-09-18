@@ -5,8 +5,6 @@ from colorama import Back, Fore, Style
 colorama.init(autoreset=True)
 
 from MatrixPro import HariMatrix
-from napolita import Napolita
-from lin2 import bongoAnalyser
 
 from HomoMatrix import DHRow
 
